@@ -2,7 +2,10 @@
 // Ses fonctions sont pures : elles ne lisent ni n'écrivent aucun fichier et n'affichent rien.
 package analyse
 
-import "vigie/parser"
+import (
+	"sort"
+	"vigie/parser"
+)
 
 // Stats regroupe les comptages du journal.
 type Stats struct {
@@ -38,6 +41,19 @@ func Calculer(evenements []parser.Evenement, ignorees int) Stats {
 // Classer transforme la map en tranche triée par nombre décroissant,
 // puis par nom (ordre alphabétique) en cas d'égalité.
 func Classer(nombres map[string]int) []Compte {
-	// Exercice 5 : à compléter.
-	return nil
+	class := make([]Compte, 0)
+	perso := Compte{}
+	for ip, nombre := range nombres {
+		perso.Nom = ip
+		perso.Nombre = nombre
+		class = append(class, perso)
+	}
+	sort.Slice(class, func(i, j int) bool {
+		return class[i].Nom < class[j].Nom
+	})
+	sort.Slice(class, func(i, j int) bool {
+		return class[i].Nombre > class[j].Nombre
+	})
+
+	return class
 }
