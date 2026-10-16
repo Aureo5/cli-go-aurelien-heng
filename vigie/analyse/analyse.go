@@ -21,8 +21,18 @@ type Compte struct {
 
 // Calculer compte les réussites, les échecs et les échecs par adresse IP.
 func Calculer(evenements []parser.Evenement, ignorees int) Stats {
-	// Exercice 4 : à compléter.
-	return Stats{}
+	Eve := Stats{0, ignorees, 0, 0, map[string]int{}}
+	for _, res := range evenements {
+		Eve.Evenements++
+		if res.Resultat == "OK" {
+			Eve.Reussites++
+		}
+		if res.Resultat == "FAIL" {
+			Eve.Echecs++
+			Eve.EchecsParIP[res.IP]++
+		}
+	}
+	return Eve
 }
 
 // Classer transforme la map en tranche triée par nombre décroissant,
