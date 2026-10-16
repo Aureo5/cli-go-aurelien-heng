@@ -16,10 +16,10 @@ func Lire(chemin string) (string, error) {
 	if err != nil {
 		if errors.Is(err, fs.ErrNotExist) {
 			err = fmt.Errorf("fichier introuvable : %s", chemin)
-			return chemin, err
+			return "", err
 		}
 		err = fmt.Errorf("Lecture de %s : %w", chemin, err)
-		return chemin, err
+		return "", err
 	}
 	return string(texte), nil
 }

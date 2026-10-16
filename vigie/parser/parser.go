@@ -43,12 +43,12 @@ func Analyser(ligne string) (Evenement, error) {
 func Journal(texte string) (evenements []Evenement, avertissements []string) {
 	for i, ligne := range strings.Split(texte, "\n") {
 		verif := strings.TrimSpace(ligne)
-		if verif != "" {
+		if verif == "" {
 			continue
 		}
 		eve, err := Analyser(ligne)
 		if err != nil {
-			erreur := fmt.Sprintf("ligne %d ignorée : %v", i, err)
+			erreur := fmt.Sprintf("ligne %d ignorée : %v", i+1, err)
 			avertissements = append(avertissements, erreur)
 			continue
 		}
